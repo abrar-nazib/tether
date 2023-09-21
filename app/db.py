@@ -74,7 +74,7 @@ def insert_data(lat, lng, tower_distance, altitude, signal_strength, image=None,
         # Insert query
         insert_query = """
         INSERT INTO signal_data (lat, lng, tower_distance, altitude, image, detection_data, signal_strength)
-        VALUES (%s, %s, %s, %s, %s, %s);
+        VALUES (%s, %s, %s, %s, %s, %s, %s);
         """
         
         # Data to insert
