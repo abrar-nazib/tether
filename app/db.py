@@ -1,12 +1,14 @@
+ENV = "prod" # dev or prod
+
 import psycopg2
 from psycopg2.extras import RealDictCursor
 from pydantic import BaseModel
 from typing import Optional
 
 DB_NAME = "tether" 
-DB_USER = "postgres"
-DB_HOST = "localhost"
-DB_PASSWORD = "root"
+DB_USER = "postgres" if ENV=="dev" else "tether"
+DB_HOST = "localhost" if ENV=="dev" else "dpg-ck4ki4s2kpls73ejdq80-a.singapore-postgres.render.com"
+DB_PASSWORD = "root" if ENV=="dev" else "j8GRreGlg2rTgodBQQt1idGklzJrZaRi"
 DB_PORT = "5432"
 
 conn = None

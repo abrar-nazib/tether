@@ -9,6 +9,7 @@ import time
 app = FastAPI()
 
 db.connect_db()
+db.create_table()
 
 d_commands = []
 drone_position = {"lat": 0, "lng": 0}
