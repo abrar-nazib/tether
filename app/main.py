@@ -29,7 +29,7 @@ async def get_signals():
 @app.post("/signal-data") 
 async def post_signal(signal: db.SignalData = Body(...)):
     # print(signal)
-    db.insert_data(signal.lat, signal.lng, signal.tower_distance, signal.altitude, signal.image, signal.detection_data)
+    db.insert_data(signal.lat, signal.lng, signal.tower_distance, signal.altitude, signal.image, signal.detection_data, signal.signal_strength)
     return {"message": "Signal data created successfully."}
 
 # API endpoint from where the drone will get the ground station commands
@@ -66,4 +66,6 @@ async def post_drone_position(coords: db.DroneCommand = Body(...)):
     drone_position = coords
     # print(f"[+] Drone Position: {drone_position}")
     return {"message": "Drone Position Recieved"}
+ 
+
  

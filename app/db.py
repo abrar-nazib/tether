@@ -22,6 +22,8 @@ class SignalData(BaseModel):
     altitude: float
     image: Optional[bytes] = None
     detection_data: Optional[str] = None
+    signal_strength: float
+    
 
 class DroneCommand(BaseModel):
     lat: float
@@ -60,22 +62,23 @@ def create_table():
         tower_distance double precision,
         altitude double precision,
         image bytea,  
-        detection_data text
+        detection_data text,
+        signal_strength double precision
     );""")
     conn.commit()
 
 # Insert Data
-def insert_data(lat, lng, tower_distance, altitude, image=None, detection_data=None):
+def insert_data(lat, lng, tower_distance, altitude, signal_strength, image=None, detection_data=None):
     try:
         
         # Insert query
         insert_query = """
-        INSERT INTO signal_data (lat, lng, tower_distance, altitude, image, detection_data)
+        INSERT INTO signal_data (lat, lng, tower_distance, altitude, image, detection_data, signal_strength)
         VALUES (%s, %s, %s, %s, %s, %s);
         """
         
         # Data to insert
-        data = (lat, lng, tower_distance, altitude, image, detection_data)
+        data = (lat, lng, tower_distance, altitude, image, detection_data, signal_strength)
         
         # Execute the insert query
         cursor.execute(insert_query, data)
