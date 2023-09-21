@@ -2,6 +2,7 @@ from typing import Optional
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.params import Body
 from app import db
+import json
 import time
 
 
@@ -38,14 +39,15 @@ async def get_drone_commands():
     # print(d_commands)
     d = []
     for elem in d_commands:
-        d.append(elem.model_dump())
+        d.append(elem)
     return d
 
 # API endpoint where the ground station will send the drone commands
 @app.post("/drone-control/plan")
-async def post_drone_commands(coords: list[db.DroneCommand] = Body(...)):
+async def post_drone_commands(coords= Body(...)):
     global d_commands
     d_commands = coords
+    print(d_commands)
     return {"message": "Drone Commands Recieved"}
 
 
