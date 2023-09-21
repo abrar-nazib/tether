@@ -49,7 +49,6 @@ def connect_db():
             break
         except Exception as e:
             print("Database Connection Error: ", e)
-            break
           
 # Create Table
 def create_table():
