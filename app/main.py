@@ -67,37 +67,3 @@ async def post_drone_position(coords: db.DroneCommand = Body(...)):
     # print(f"[+] Drone Position: {drone_position}")
     return {"message": "Drone Position Recieved"}
  
-class ConnectionManager:
-    def __init__(self):
-        self.active_connections: list[WebSocket] = []
-
-    async def connect(self, websocket: WebSocket):
-        await websocket.accept()
-        self.active_connections.append(websocket)
-
-    def disconnect(self, websocket: WebSocket):
-        self.active_connections.remove(websocket)
-
-    async def send_personal_message(self, message: str, websocket: WebSocket):
-        await websocket.send_text(message)
-
-    async def broadcast(self, message: str):
-        for connection in self.active_connections:
-            await connection.send_text(message)
-manager=ConnectionManager() 
-
-@app.websocket('/ws')
-async def websocket_endpoint(websocket: WebSocket):
-    global d_commands
-    await manager.connect(websocket)
-    try:
-        while True:
-            if(d_commands != []):
-                print("Recieved Drone Commands")
-                await manager.send_personal_message(f"Drone Command", websocket)
-                d_commands=[]
-    except WebSocketDisconnect:
-        manager.disconnect(websocket)
-        await manager.broadcast(f"Client left")
-        print("Client left")
-

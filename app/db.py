@@ -78,7 +78,7 @@ def insert_data(lat, lng, tower_distance, altitude, image=None, detection_data=N
         data = (lat, lng, tower_distance, altitude, image, detection_data)
         
         # Execute the insert query
-        # print(cursor.execute(insert_query, data))
+        cursor.execute(insert_query, data)
         
         # Commit the transaction
         conn.commit()
