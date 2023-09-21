@@ -43,7 +43,7 @@ async def get_drone_commands():
 
 # API endpoint where the ground station will send the drone commands
 @app.post("/drone-control/plan")
-async def post_drone_commands(coords: list[db.DroneCommand] =Body(...)):
+async def post_drone_commands(coords: list[db.DroneCommand] = Body(...)):
     global d_commands
     d_commands = coords
     return {"message": "Drone Commands Recieved"}
