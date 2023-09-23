@@ -8,10 +8,10 @@ from app import db
 app = FastAPI()
 
 db.connect_db()
-db.create_table()
+# db.create_table()
 
 d_commands = []
-drone_position = {"lat": 0, "lng": 0}
+drone_position = {"lat": 23.72831154801888, "lng": 90.39584364767866}
 
 @app.get("/")
 async def root():
